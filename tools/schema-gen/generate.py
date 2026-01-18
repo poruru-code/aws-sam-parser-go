@@ -337,6 +337,18 @@ def main():
                 f.write(line)
         print("Post-processing successful.")
 
+        fmt = subprocess.run(
+            ["gofmt", "-w", OUTPUT_FILE],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if fmt.returncode != 0:
+            print("--- gofmt stderr ---")
+            print(fmt.stderr)
+            print("gofmt failed. Ensure Go is installed and gofmt is on PATH.")
+            sys.exit(1)
+
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         sys.exit(1)
