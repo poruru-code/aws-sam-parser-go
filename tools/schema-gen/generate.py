@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import sys
+from collections import defaultdict
 
 # --- 設定 ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +23,94 @@ OUTPUT_FILE = os.path.join(PROJECT_ROOT, "schema/sam_generated.go")
 
 # 削除対象の汎用的なtitle（構造体名の衝突・不安定化の原因）
 TITLES_TO_REMOVE = {"Properties", "Type", "Auth"}
+
+
+def is_schema_dict(obj):
+    if not isinstance(obj, dict):
+        return False
+    schema_keys = {
+        "$ref",
+        "type",
+        "properties",
+        "items",
+        "additionalProperties",
+        "allOf",
+        "anyOf",
+        "oneOf",
+        "enum",
+    }
+    return any(key in obj for key in schema_keys)
+
+
+def collect_title_counts(obj, counts):
+    if isinstance(obj, dict):
+        title = obj.get("title")
+        if title:
+            counts[title] += 1
+        for value in obj.values():
+            collect_title_counts(value, counts)
+    elif isinstance(obj, list):
+        for item in obj:
+            collect_title_counts(item, counts)
+
+
+def normalize_titles(schema_data):
+    """
+    Ensure schema titles are unique and stable to avoid nondeterministic codegen.
+    """
+    title_counts = defaultdict(int)
+    collect_title_counts(schema_data, title_counts)
+    used_titles: set[str] = set()
+
+    def ensure_unique_title(current, path_parts):
+        if not is_schema_dict(current):
+            return
+
+        title = current.get("title")
+        is_duplicate = bool(title) and title_counts[title] > 1
+        needs_title = not title or is_duplicate
+
+        if needs_title:
+            base = "_".join(path_parts) if path_parts else "Schema"
+            if title and title not in base:
+                base = f"{base}_{title}"
+            base = sanitize_title(base)
+            candidate = base
+            suffix = 1
+            while candidate in used_titles:
+                candidate = f"{base}_{suffix}"
+                suffix += 1
+            current["title"] = candidate
+            used_titles.add(candidate)
+        else:
+            used_titles.add(title)
+
+    def walk(current, path_parts):
+        if isinstance(current, dict):
+            ensure_unique_title(current, path_parts)
+            for key in sorted(current.keys()):
+                value = current[key]
+                if key == "definitions" and isinstance(value, dict):
+                    for def_key in sorted(value.keys()):
+                        walk(value[def_key], path_parts + [def_key])
+                    continue
+                if key == "properties" and isinstance(value, dict):
+                    for prop_key in sorted(value.keys()):
+                        walk(value[prop_key], path_parts + [prop_key])
+                    continue
+                if key in {"items", "additionalProperties"}:
+                    walk(value, path_parts + [key])
+                    continue
+                if key in {"allOf", "anyOf", "oneOf"} and isinstance(value, list):
+                    for idx, item in enumerate(value):
+                        walk(item, path_parts + [f"{key}{idx}"])
+                    continue
+                walk(value, path_parts)
+        elif isinstance(current, list):
+            for item in current:
+                walk(item, path_parts)
+
+    walk(schema_data, [])
 
 
 def load_json(filepath):
@@ -262,6 +351,7 @@ def main():
 
     print("Sanitizing schema (removing duplicate titles)...")
     sanitize_schema(schema_data)
+    normalize_titles(schema_data)
 
     print(f"Generating Go code to {OUTPUT_FILE}...")
     cmd = [
