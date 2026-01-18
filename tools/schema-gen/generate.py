@@ -3,6 +3,7 @@
 # Why: Keep schema and generated types in sync for consumers.
 import json
 import os
+import shutil
 import subprocess
 import sys
 from collections import defaultdict
@@ -466,16 +467,17 @@ def main():
             f.writelines(filtered)
         print("Post-processing successful.")
 
+        formatter = "gofumpt" if shutil.which("gofumpt") else "gofmt"
         fmt = subprocess.run(
-            ["gofmt", "-w", OUTPUT_FILE],
+            [formatter, "-w", OUTPUT_FILE],
             check=False,
             capture_output=True,
             text=True,
         )
         if fmt.returncode != 0:
-            print("--- gofmt stderr ---")
+            print(f"--- {formatter} stderr ---")
             print(fmt.stderr)
-            print("gofmt failed. Ensure Go is installed and gofmt is on PATH.")
+            print(f"{formatter} failed. Ensure it is installed and on PATH.")
             sys.exit(1)
 
     except Exception as e:
