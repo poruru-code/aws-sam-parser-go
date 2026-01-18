@@ -3,8 +3,10 @@
 # Why: Keep schema and generated types in sync for consumers.
 import json
 import os
+import shutil
 import subprocess
 import sys
+from collections import defaultdict
 
 # --- 設定 ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,6 +24,94 @@ OUTPUT_FILE = os.path.join(PROJECT_ROOT, "schema/sam_generated.go")
 
 # 削除対象の汎用的なtitle（構造体名の衝突・不安定化の原因）
 TITLES_TO_REMOVE = {"Properties", "Type", "Auth"}
+
+
+def is_schema_dict(obj):
+    if not isinstance(obj, dict):
+        return False
+    schema_keys = {
+        "$ref",
+        "type",
+        "properties",
+        "items",
+        "additionalProperties",
+        "allOf",
+        "anyOf",
+        "oneOf",
+        "enum",
+    }
+    return any(key in obj for key in schema_keys)
+
+
+def collect_title_counts(obj, counts):
+    if isinstance(obj, dict):
+        title = obj.get("title")
+        if title:
+            counts[title] += 1
+        for value in obj.values():
+            collect_title_counts(value, counts)
+    elif isinstance(obj, list):
+        for item in obj:
+            collect_title_counts(item, counts)
+
+
+def normalize_titles(schema_data):
+    """
+    Ensure schema titles are unique and stable to avoid nondeterministic codegen.
+    """
+    title_counts = defaultdict(int)
+    collect_title_counts(schema_data, title_counts)
+    used_titles: set[str] = set()
+
+    def ensure_unique_title(current, path_parts):
+        if not is_schema_dict(current):
+            return
+
+        title = current.get("title")
+        is_duplicate = bool(title) and title_counts[title] > 1
+        needs_title = not title or is_duplicate
+
+        if needs_title:
+            base = "_".join(path_parts) if path_parts else "Schema"
+            if title and title not in base:
+                base = f"{base}_{title}"
+            base = sanitize_title(base)
+            candidate = base
+            suffix = 1
+            while candidate in used_titles:
+                candidate = f"{base}_{suffix}"
+                suffix += 1
+            current["title"] = candidate
+            used_titles.add(candidate)
+        else:
+            used_titles.add(title)
+
+    def walk(current, path_parts):
+        if isinstance(current, dict):
+            ensure_unique_title(current, path_parts)
+            for key in sorted(current.keys()):
+                value = current[key]
+                if key == "definitions" and isinstance(value, dict):
+                    for def_key in sorted(value.keys()):
+                        walk(value[def_key], path_parts + [def_key])
+                    continue
+                if key == "properties" and isinstance(value, dict):
+                    for prop_key in sorted(value.keys()):
+                        walk(value[prop_key], path_parts + [prop_key])
+                    continue
+                if key in {"items", "additionalProperties"}:
+                    walk(value, path_parts + [key])
+                    continue
+                if key in {"allOf", "anyOf", "oneOf"} and isinstance(value, list):
+                    for idx, item in enumerate(value):
+                        walk(item, path_parts + [f"{key}{idx}"])
+                    continue
+                walk(value, path_parts)
+        elif isinstance(current, list):
+            for item in current:
+                walk(item, path_parts)
+
+    walk(schema_data, [])
 
 
 def load_json(filepath):
@@ -157,7 +247,7 @@ def merge_extensions(base_schema):
     if "definitions" not in base_schema:
         base_schema["definitions"] = {}
 
-    for filename in os.listdir(EXTENSIONS_DIR):
+    for filename in sorted(os.listdir(EXTENSIONS_DIR)):
         if filename.endswith(".json"):
             schema_file = os.path.join(EXTENSIONS_DIR, filename)
             try:
@@ -262,6 +352,7 @@ def main():
 
     print("Sanitizing schema (removing duplicate titles)...")
     sanitize_schema(schema_data)
+    normalize_titles(schema_data)
 
     print(f"Generating Go code to {OUTPUT_FILE}...")
     cmd = [
@@ -280,7 +371,8 @@ def main():
 
         # Dynamically build ForceGeneration properties to include all top-level resources
         force_gen_props = {}
-        for def_name, def_body in schema_data["definitions"].items():
+        for def_name in sorted(schema_data["definitions"].keys()):
+            def_body = schema_data["definitions"][def_name]
             # Heuristic: top-level resources usually have a "Type" property (enum)
             # In our case, merge_extensions creates definitions with titles like AWSS3Bucket
             # and they have a "Type" field if they are resources.
@@ -314,7 +406,12 @@ def main():
         print(f"Generating Go code to {OUTPUT_FILE}...")
 
         # Run schema-generate and capture output
-        result = subprocess.run(cmd, check=False, capture_output=True, text=True)
+        env = os.environ.copy()
+        godebug = env.get("GODEBUG", "")
+        if "randautoseed=0" not in godebug:
+            env["GODEBUG"] = "randautoseed=0" if not godebug else f"{godebug},randautoseed=0"
+
+        result = subprocess.run(cmd, check=False, capture_output=True, text=True, env=env)
 
         print("--- schema-generate stdout ---")
         print(result.stdout)
@@ -330,12 +427,58 @@ def main():
         with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
+        filtered: list[str] = []
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.strip()
+
+            if stripped == "import (":
+                block: list[str] = []
+                i += 1
+                while i < len(lines):
+                    if lines[i].strip() == ")":
+                        break
+                    if '"encoding/json"' in lines[i]:
+                        i += 1
+                        continue
+                    block.append(lines[i])
+                    i += 1
+                i += 1  # skip ")"
+
+                if any(l.strip() and not l.strip().startswith("//") for l in block):
+                    filtered.append("import (\n")
+                    filtered.extend(block)
+                    filtered.append(")\n")
+                continue
+
+            if stripped == "import ()":
+                i += 1
+                continue
+
+            if '"encoding/json"' in line:
+                i += 1
+                continue
+
+            filtered.append(line)
+            i += 1
+
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            for line in lines:
-                if '"encoding/json"' in line:
-                    continue
-                f.write(line)
+            f.writelines(filtered)
         print("Post-processing successful.")
+
+        formatter = "gofumpt" if shutil.which("gofumpt") else "gofmt"
+        fmt = subprocess.run(
+            [formatter, "-w", OUTPUT_FILE],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if fmt.returncode != 0:
+            print(f"--- {formatter} stderr ---")
+            print(fmt.stderr)
+            print(f"{formatter} failed. Ensure it is installed and on PATH.")
+            sys.exit(1)
 
     except Exception as e:
         print(f"An unexpected error occurred: {e}")

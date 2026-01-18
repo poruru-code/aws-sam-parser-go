@@ -1124,9 +1124,6 @@ type ApiKey struct {
 	ExpiresOn   interface{} `json:"ExpiresOn,omitempty"`
 }
 
-// AssumeRolePolicyDocument
-type AssumeRolePolicyDocument struct{}
-
 // Authorizer
 type Authorizer struct {
 	LambdaAuthorizer *LambdaAuthorizerConfig `json:"LambdaAuthorizer,omitempty"`
@@ -1224,13 +1221,6 @@ type DataSources struct {
 	Lambda   map[string]*LambdaDataSource   `json:"Lambda,omitempty"`
 }
 
-// DeadLetterConfig
-type DeadLetterConfig struct {
-	Arn            interface{} `json:"Arn,omitempty"`
-	QueueLogicalId string      `json:"QueueLogicalId,omitempty"`
-	Type           string      `json:"Type,omitempty"`
-}
-
 // DeadLetterQueue
 type DeadLetterQueue struct {
 	TargetArn string `json:"TargetArn"`
@@ -1239,9 +1229,6 @@ type DeadLetterQueue struct {
 
 // Definition
 type Definition struct{}
-
-// DefinitionBody
-type DefinitionBody struct{}
 
 // DefinitionSubstitutions
 type DefinitionSubstitutions struct{}
@@ -1358,12 +1345,6 @@ type EndpointConfiguration struct {
 	VPCEndpointIds interface{} `json:"VPCEndpointIds,omitempty"`
 }
 
-// EventBridgeRuleEvent
-type EventBridgeRuleEvent struct {
-	Properties interface{} `json:"Properties"`
-	Type       string      `json:"Type"`
-}
-
 // EventInvokeConfig
 type EventInvokeConfig struct {
 	DestinationConfig        interface{} `json:"DestinationConfig,omitempty"`
@@ -1403,49 +1384,49 @@ type EventsScheduleProperties struct {
 
 // ForceGeneration
 type ForceGeneration struct {
-	AWSDynamoDBTable                                                               *AWSDynamoDBTable                                                           `json:"AWSDynamoDBTable,omitempty"`
-	AWSS3Bucket                                                                    *AWSS3Bucket                                                                `json:"AWSS3Bucket,omitempty"`
-	AlexaSkillEvent                                                                *AlexaSkillEvent                                                            `json:"AlexaSkillEvent,omitempty"`
-	Authorizer                                                                     *Authorizer                                                                 `json:"Authorizer,omitempty"`
-	CloudWatchLogsEvent                                                            *CloudWatchLogsEvent                                                        `json:"CloudWatchLogsEvent,omitempty"`
-	CognitoEvent                                                                   *CognitoEvent                                                               `json:"CognitoEvent,omitempty"`
-	DeadLetterQueue                                                                *DeadLetterQueue                                                            `json:"DeadLetterQueue,omitempty"`
-	DocumentDBEvent                                                                *DocumentDBEvent                                                            `json:"DocumentDBEvent,omitempty"`
-	DynamoDBEvent                                                                  *DynamoDBEvent                                                              `json:"DynamoDBEvent,omitempty"`
-	EventInvokeOnFailure                                                           *EventInvokeOnFailure                                                       `json:"EventInvokeOnFailure,omitempty"`
-	EventInvokeOnSuccess                                                           *EventInvokeOnSuccess                                                       `json:"EventInvokeOnSuccess,omitempty"`
-	HttpApiEvent                                                                   *HttpApiEvent                                                               `json:"HttpApiEvent,omitempty"`
-	IoTRuleEvent                                                                   *IoTRuleEvent                                                               `json:"IoTRuleEvent,omitempty"`
-	KinesisEvent                                                                   *KinesisEvent                                                               `json:"KinesisEvent,omitempty"`
-	MQEvent                                                                        *MQEvent                                                                    `json:"MQEvent,omitempty"`
-	MSKEvent                                                                       *MSKEvent                                                                   `json:"MSKEvent,omitempty"`
-	S3Event                                                                        *S3Event                                                                    `json:"S3Event,omitempty"`
-	SNSEvent                                                                       *SNSEvent                                                                   `json:"SNSEvent,omitempty"`
-	SQSEvent                                                                       *SQSEvent                                                                   `json:"SQSEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessApiResource                      *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_api__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource              *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_application__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource         *SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource     `json:"samtranslator__internal__schema_source__aws_serverless_capacity_provider__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessConnectorResource                *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_connector__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionApiEvent                 *SamtranslatorInternalSchemaSourceAwsServerlessFunctionApiEvent             `json:"samtranslator__internal__schema_source__aws_serverless_function__ApiEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionCloudWatchEvent          *SamtranslatorInternalSchemaSourceAwsServerlessFunctionCloudWatchEvent      `json:"samtranslator__internal__schema_source__aws_serverless_function__CloudWatchEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionDeadLetterConfig         *DeadLetterConfig                                                           `json:"samtranslator__internal__schema_source__aws_serverless_function__DeadLetterConfig,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionEventBridgeRuleEvent     *SamtranslatorInternalSchemaSourceAwsServerlessFunctionEventBridgeRuleEvent `json:"samtranslator__internal__schema_source__aws_serverless_function__EventBridgeRuleEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionResource                 *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_function__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleEvent            *ScheduleEvent                                                              `json:"samtranslator__internal__schema_source__aws_serverless_function__ScheduleEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleV2Event          *ScheduleV2Event                                                            `json:"samtranslator__internal__schema_source__aws_serverless_function__ScheduleV2Event,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth                   *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth               `json:"samtranslator__internal__schema_source__aws_serverless_graphqlapi__Auth,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiResource               *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_graphqlapi__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource                  *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource              `json:"samtranslator__internal__schema_source__aws_serverless_httpapi__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessLayerversionResource             *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_layerversion__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource              *SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource          `json:"samtranslator__internal__schema_source__aws_serverless_simpletable__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineApiEvent             *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineApiEvent         `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ApiEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineCloudWatchEvent      *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineCloudWatchEvent  `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__CloudWatchEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineDeadLetterConfig     *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineDeadLetterConfig `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__DeadLetterConfig,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineEventBridgeRuleEvent *EventBridgeRuleEvent                                                       `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__EventBridgeRuleEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineResource             *Resource                                                                   `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__Resource,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleEvent        *ScheduleEvent                                                              `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ScheduleEvent,omitempty"`
-	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleV2Event      *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleV2Event  `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ScheduleV2Event,omitempty"`
-	SelfManagedKafkaEvent                                                          *SelfManagedKafkaEvent                                                      `json:"SelfManagedKafkaEvent,omitempty"`
+	AWSDynamoDBTable                                                               *AWSDynamoDBTable                                                               `json:"AWSDynamoDBTable,omitempty"`
+	AWSS3Bucket                                                                    *AWSS3Bucket                                                                    `json:"AWSS3Bucket,omitempty"`
+	AlexaSkillEvent                                                                *AlexaSkillEvent                                                                `json:"AlexaSkillEvent,omitempty"`
+	Authorizer                                                                     *Authorizer                                                                     `json:"Authorizer,omitempty"`
+	CloudWatchLogsEvent                                                            *CloudWatchLogsEvent                                                            `json:"CloudWatchLogsEvent,omitempty"`
+	CognitoEvent                                                                   *CognitoEvent                                                                   `json:"CognitoEvent,omitempty"`
+	DeadLetterQueue                                                                *DeadLetterQueue                                                                `json:"DeadLetterQueue,omitempty"`
+	DocumentDBEvent                                                                *DocumentDBEvent                                                                `json:"DocumentDBEvent,omitempty"`
+	DynamoDBEvent                                                                  *DynamoDBEvent                                                                  `json:"DynamoDBEvent,omitempty"`
+	EventInvokeOnFailure                                                           *EventInvokeOnFailure                                                           `json:"EventInvokeOnFailure,omitempty"`
+	EventInvokeOnSuccess                                                           *EventInvokeOnSuccess                                                           `json:"EventInvokeOnSuccess,omitempty"`
+	HttpApiEvent                                                                   *HttpApiEvent                                                                   `json:"HttpApiEvent,omitempty"`
+	IoTRuleEvent                                                                   *IoTRuleEvent                                                                   `json:"IoTRuleEvent,omitempty"`
+	KinesisEvent                                                                   *KinesisEvent                                                                   `json:"KinesisEvent,omitempty"`
+	MQEvent                                                                        *MQEvent                                                                        `json:"MQEvent,omitempty"`
+	MSKEvent                                                                       *MSKEvent                                                                       `json:"MSKEvent,omitempty"`
+	S3Event                                                                        *S3Event                                                                        `json:"S3Event,omitempty"`
+	SNSEvent                                                                       *SNSEvent                                                                       `json:"SNSEvent,omitempty"`
+	SQSEvent                                                                       *SQSEvent                                                                       `json:"SQSEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessApiResource                      *SamtranslatorInternalSchemaSourceAwsServerlessApiResource                      `json:"samtranslator__internal__schema_source__aws_serverless_api__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource              *SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource              `json:"samtranslator__internal__schema_source__aws_serverless_application__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource         *SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource         `json:"samtranslator__internal__schema_source__aws_serverless_capacity_provider__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessConnectorResource                *SamtranslatorInternalSchemaSourceAwsServerlessConnectorResource                `json:"samtranslator__internal__schema_source__aws_serverless_connector__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionApiEvent                 *SamtranslatorInternalSchemaSourceAwsServerlessFunctionApiEvent                 `json:"samtranslator__internal__schema_source__aws_serverless_function__ApiEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionCloudWatchEvent          *SamtranslatorInternalSchemaSourceAwsServerlessFunctionCloudWatchEvent          `json:"samtranslator__internal__schema_source__aws_serverless_function__CloudWatchEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionDeadLetterConfig         *SamtranslatorInternalSchemaSourceAwsServerlessFunctionDeadLetterConfig         `json:"samtranslator__internal__schema_source__aws_serverless_function__DeadLetterConfig,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionEventBridgeRuleEvent     *SamtranslatorInternalSchemaSourceAwsServerlessFunctionEventBridgeRuleEvent     `json:"samtranslator__internal__schema_source__aws_serverless_function__EventBridgeRuleEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionResource                 *SamtranslatorInternalSchemaSourceAwsServerlessFunctionResource                 `json:"samtranslator__internal__schema_source__aws_serverless_function__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleEvent            *SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleEvent            `json:"samtranslator__internal__schema_source__aws_serverless_function__ScheduleEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleV2Event          *SamtranslatorInternalSchemaSourceAwsServerlessFunctionScheduleV2Event          `json:"samtranslator__internal__schema_source__aws_serverless_function__ScheduleV2Event,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth                   *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth                   `json:"samtranslator__internal__schema_source__aws_serverless_graphqlapi__Auth,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiResource               *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiResource               `json:"samtranslator__internal__schema_source__aws_serverless_graphqlapi__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource                  *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource                  `json:"samtranslator__internal__schema_source__aws_serverless_httpapi__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessLayerversionResource             *SamtranslatorInternalSchemaSourceAwsServerlessLayerversionResource             `json:"samtranslator__internal__schema_source__aws_serverless_layerversion__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource              *SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource              `json:"samtranslator__internal__schema_source__aws_serverless_simpletable__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineApiEvent             *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineApiEvent             `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ApiEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineCloudWatchEvent      *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineCloudWatchEvent      `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__CloudWatchEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineDeadLetterConfig     *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineDeadLetterConfig     `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__DeadLetterConfig,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineEventBridgeRuleEvent *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineEventBridgeRuleEvent `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__EventBridgeRuleEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineResource             *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineResource             `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__Resource,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleEvent        *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleEvent        `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ScheduleEvent,omitempty"`
+	SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleV2Event      *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineScheduleV2Event      `json:"samtranslator__internal__schema_source__aws_serverless_statemachine__ScheduleV2Event,omitempty"`
+	SelfManagedKafkaEvent                                                          *SelfManagedKafkaEvent                                                          `json:"SelfManagedKafkaEvent,omitempty"`
 }
 
 // Function
@@ -1466,14 +1447,6 @@ type FunctionUrlConfig struct {
 	AuthType   interface{} `json:"AuthType"`
 	Cors       interface{} `json:"Cors,omitempty"`
 	InvokeMode interface{} `json:"InvokeMode,omitempty"`
-}
-
-// GatewayResponses
-type GatewayResponses struct{}
-
-// Globals
-type Globals struct {
-	PublishLambdaVersion bool `json:"PublishLambdaVersion,omitempty"`
 }
 
 // Hooks
@@ -1685,13 +1658,13 @@ type MSKEventProperties struct {
 
 // MainGlobals
 type MainGlobals struct {
-	Api              *Globals                                                               `json:"Api,omitempty"`
+	Api              *SamtranslatorInternalSchemaSourceAwsServerlessApiGlobals              `json:"Api,omitempty"`
 	CapacityProvider *SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobals `json:"CapacityProvider,omitempty"`
-	Function         *Globals                                                               `json:"Function,omitempty"`
-	HttpApi          *Globals                                                               `json:"HttpApi,omitempty"`
-	LayerVersion     *Globals                                                               `json:"LayerVersion,omitempty"`
-	SimpleTable      *Globals                                                               `json:"SimpleTable,omitempty"`
-	StateMachine     *Globals                                                               `json:"StateMachine,omitempty"`
+	Function         *SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobals         `json:"Function,omitempty"`
+	HttpApi          *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobals          `json:"HttpApi,omitempty"`
+	LayerVersion     *SamtranslatorInternalSchemaSourceAwsServerlessLayerversionGlobals     `json:"LayerVersion,omitempty"`
+	SimpleTable      *SamtranslatorInternalSchemaSourceAwsServerlessSimpletableGlobals      `json:"SimpleTable,omitempty"`
+	StateMachine     *SamtranslatorInternalSchemaSourceAwsServerlessStatemachineGlobals     `json:"StateMachine,omitempty"`
 }
 
 // Models
@@ -1747,18 +1720,6 @@ type Resolver struct {
 	Pipeline     []string    `json:"Pipeline,omitempty"`
 	Runtime      *Runtime    `json:"Runtime,omitempty"`
 	Sync         *Sync       `json:"Sync,omitempty"`
-}
-
-// Resource
-type Resource struct {
-	Condition           interface{}                                                        `json:"Condition,omitempty"`
-	DeletionPolicy      interface{}                                                        `json:"DeletionPolicy,omitempty"`
-	DependsOn           interface{}                                                        `json:"DependsOn,omitempty"`
-	IgnoreGlobals       interface{}                                                        `json:"IgnoreGlobals,omitempty"`
-	Metadata            interface{}                                                        `json:"Metadata,omitempty"`
-	Properties          *SamtranslatorInternalSchemaSourceAwsServerlessConnectorProperties `json:"Properties"`
-	Type                string                                                             `json:"Type"`
-	UpdateReplacePolicy interface{}                                                        `json:"UpdateReplacePolicy,omitempty"`
 }
 
 // ResourceReference
@@ -1875,61 +1836,73 @@ type SamtranslatorInternalSchemaSourceAwsServerlessApiDomain struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessApiGlobals
 type SamtranslatorInternalSchemaSourceAwsServerlessApiGlobals struct {
-	AccessLogSetting       interface{}       `json:"AccessLogSetting,omitempty"`
-	AlwaysDeploy           bool              `json:"AlwaysDeploy,omitempty"`
-	Auth                   interface{}       `json:"Auth,omitempty"`
-	BinaryMediaTypes       interface{}       `json:"BinaryMediaTypes,omitempty"`
-	CacheClusterEnabled    interface{}       `json:"CacheClusterEnabled,omitempty"`
-	CacheClusterSize       interface{}       `json:"CacheClusterSize,omitempty"`
-	CanarySetting          interface{}       `json:"CanarySetting,omitempty"`
-	Cors                   interface{}       `json:"Cors,omitempty"`
-	DefinitionUri          interface{}       `json:"DefinitionUri,omitempty"`
-	Domain                 interface{}       `json:"Domain,omitempty"`
-	EndpointConfiguration  interface{}       `json:"EndpointConfiguration,omitempty"`
-	GatewayResponses       *GatewayResponses `json:"GatewayResponses,omitempty"`
-	MergeDefinitions       bool              `json:"MergeDefinitions,omitempty"`
-	MethodSettings         interface{}       `json:"MethodSettings,omitempty"`
-	MinimumCompressionSize interface{}       `json:"MinimumCompressionSize,omitempty"`
-	Name                   interface{}       `json:"Name,omitempty"`
-	OpenApiVersion         interface{}       `json:"OpenApiVersion,omitempty"`
-	PropagateTags          bool              `json:"PropagateTags,omitempty"`
-	TracingEnabled         interface{}       `json:"TracingEnabled,omitempty"`
-	Variables              interface{}       `json:"Variables,omitempty"`
+	AccessLogSetting       interface{}                                                               `json:"AccessLogSetting,omitempty"`
+	AlwaysDeploy           bool                                                                      `json:"AlwaysDeploy,omitempty"`
+	Auth                   interface{}                                                               `json:"Auth,omitempty"`
+	BinaryMediaTypes       interface{}                                                               `json:"BinaryMediaTypes,omitempty"`
+	CacheClusterEnabled    interface{}                                                               `json:"CacheClusterEnabled,omitempty"`
+	CacheClusterSize       interface{}                                                               `json:"CacheClusterSize,omitempty"`
+	CanarySetting          interface{}                                                               `json:"CanarySetting,omitempty"`
+	Cors                   interface{}                                                               `json:"Cors,omitempty"`
+	DefinitionUri          interface{}                                                               `json:"DefinitionUri,omitempty"`
+	Domain                 interface{}                                                               `json:"Domain,omitempty"`
+	EndpointConfiguration  interface{}                                                               `json:"EndpointConfiguration,omitempty"`
+	GatewayResponses       *SamtranslatorInternalSchemaSourceAwsServerlessApiGlobalsGatewayResponses `json:"GatewayResponses,omitempty"`
+	MergeDefinitions       bool                                                                      `json:"MergeDefinitions,omitempty"`
+	MethodSettings         interface{}                                                               `json:"MethodSettings,omitempty"`
+	MinimumCompressionSize interface{}                                                               `json:"MinimumCompressionSize,omitempty"`
+	Name                   interface{}                                                               `json:"Name,omitempty"`
+	OpenApiVersion         interface{}                                                               `json:"OpenApiVersion,omitempty"`
+	PropagateTags          bool                                                                      `json:"PropagateTags,omitempty"`
+	TracingEnabled         interface{}                                                               `json:"TracingEnabled,omitempty"`
+	Variables              interface{}                                                               `json:"Variables,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessApiGlobalsGatewayResponses
+type SamtranslatorInternalSchemaSourceAwsServerlessApiGlobalsGatewayResponses struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessApiProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessApiProperties struct {
-	AccessLogSetting          interface{}       `json:"AccessLogSetting,omitempty"`
-	AlwaysDeploy              bool              `json:"AlwaysDeploy,omitempty"`
-	ApiKeySourceType          interface{}       `json:"ApiKeySourceType,omitempty"`
-	Auth                      interface{}       `json:"Auth,omitempty"`
-	BinaryMediaTypes          interface{}       `json:"BinaryMediaTypes,omitempty"`
-	CacheClusterEnabled       interface{}       `json:"CacheClusterEnabled,omitempty"`
-	CacheClusterSize          interface{}       `json:"CacheClusterSize,omitempty"`
-	CanarySetting             interface{}       `json:"CanarySetting,omitempty"`
-	Cors                      interface{}       `json:"Cors,omitempty"`
-	DefinitionBody            *DefinitionBody   `json:"DefinitionBody,omitempty"`
-	DefinitionUri             interface{}       `json:"DefinitionUri,omitempty"`
-	Description               interface{}       `json:"Description,omitempty"`
-	DisableExecuteApiEndpoint interface{}       `json:"DisableExecuteApiEndpoint,omitempty"`
-	Domain                    interface{}       `json:"Domain,omitempty"`
-	EndpointConfiguration     interface{}       `json:"EndpointConfiguration,omitempty"`
-	FailOnWarnings            interface{}       `json:"FailOnWarnings,omitempty"`
-	GatewayResponses          *GatewayResponses `json:"GatewayResponses,omitempty"`
-	MergeDefinitions          bool              `json:"MergeDefinitions,omitempty"`
-	MethodSettings            interface{}       `json:"MethodSettings,omitempty"`
-	MinimumCompressionSize    interface{}       `json:"MinimumCompressionSize,omitempty"`
-	Mode                      interface{}       `json:"Mode,omitempty"`
-	Models                    *Models           `json:"Models,omitempty"`
-	Name                      interface{}       `json:"Name,omitempty"`
-	OpenApiVersion            interface{}       `json:"OpenApiVersion,omitempty"`
-	Policy                    interface{}       `json:"Policy,omitempty"`
-	PropagateTags             bool              `json:"PropagateTags,omitempty"`
-	StageName                 interface{}       `json:"StageName"`
-	Tags                      *Tags             `json:"Tags,omitempty"`
-	TracingEnabled            interface{}       `json:"TracingEnabled,omitempty"`
-	Variables                 interface{}       `json:"Variables,omitempty"`
+	AccessLogSetting          interface{}                                                                  `json:"AccessLogSetting,omitempty"`
+	AlwaysDeploy              bool                                                                         `json:"AlwaysDeploy,omitempty"`
+	ApiKeySourceType          interface{}                                                                  `json:"ApiKeySourceType,omitempty"`
+	Auth                      interface{}                                                                  `json:"Auth,omitempty"`
+	BinaryMediaTypes          interface{}                                                                  `json:"BinaryMediaTypes,omitempty"`
+	CacheClusterEnabled       interface{}                                                                  `json:"CacheClusterEnabled,omitempty"`
+	CacheClusterSize          interface{}                                                                  `json:"CacheClusterSize,omitempty"`
+	CanarySetting             interface{}                                                                  `json:"CanarySetting,omitempty"`
+	Cors                      interface{}                                                                  `json:"Cors,omitempty"`
+	DefinitionBody            *SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesDefinitionBody   `json:"DefinitionBody,omitempty"`
+	DefinitionUri             interface{}                                                                  `json:"DefinitionUri,omitempty"`
+	Description               interface{}                                                                  `json:"Description,omitempty"`
+	DisableExecuteApiEndpoint interface{}                                                                  `json:"DisableExecuteApiEndpoint,omitempty"`
+	Domain                    interface{}                                                                  `json:"Domain,omitempty"`
+	EndpointConfiguration     interface{}                                                                  `json:"EndpointConfiguration,omitempty"`
+	FailOnWarnings            interface{}                                                                  `json:"FailOnWarnings,omitempty"`
+	GatewayResponses          *SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesGatewayResponses `json:"GatewayResponses,omitempty"`
+	MergeDefinitions          bool                                                                         `json:"MergeDefinitions,omitempty"`
+	MethodSettings            interface{}                                                                  `json:"MethodSettings,omitempty"`
+	MinimumCompressionSize    interface{}                                                                  `json:"MinimumCompressionSize,omitempty"`
+	Mode                      interface{}                                                                  `json:"Mode,omitempty"`
+	Models                    *Models                                                                      `json:"Models,omitempty"`
+	Name                      interface{}                                                                  `json:"Name,omitempty"`
+	OpenApiVersion            interface{}                                                                  `json:"OpenApiVersion,omitempty"`
+	Policy                    interface{}                                                                  `json:"Policy,omitempty"`
+	PropagateTags             bool                                                                         `json:"PropagateTags,omitempty"`
+	StageName                 interface{}                                                                  `json:"StageName"`
+	Tags                      *SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesTags             `json:"Tags,omitempty"`
+	TracingEnabled            interface{}                                                                  `json:"TracingEnabled,omitempty"`
+	Variables                 interface{}                                                                  `json:"Variables,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesDefinitionBody
+type SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesDefinitionBody struct{}
+
+// SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesGatewayResponses
+type SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesGatewayResponses struct{}
+
+// SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessApiPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessApiResource
 type SamtranslatorInternalSchemaSourceAwsServerlessApiResource struct {
@@ -1975,12 +1948,15 @@ type SamtranslatorInternalSchemaSourceAwsServerlessApiRoute53 struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessApplicationProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessApplicationProperties struct {
-	Location         interface{} `json:"Location"`
-	NotificationARNs interface{} `json:"NotificationARNs,omitempty"`
-	Parameters       interface{} `json:"Parameters,omitempty"`
-	Tags             *Tags       `json:"Tags,omitempty"`
-	TimeoutInMinutes interface{} `json:"TimeoutInMinutes,omitempty"`
+	Location         interface{}                                                              `json:"Location"`
+	NotificationARNs interface{}                                                              `json:"NotificationARNs,omitempty"`
+	Parameters       interface{}                                                              `json:"Parameters,omitempty"`
+	Tags             *SamtranslatorInternalSchemaSourceAwsServerlessApplicationPropertiesTags `json:"Tags,omitempty"`
+	TimeoutInMinutes interface{}                                                              `json:"TimeoutInMinutes,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessApplicationPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessApplicationPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource
 type SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource struct {
@@ -1996,26 +1972,32 @@ type SamtranslatorInternalSchemaSourceAwsServerlessApplicationResource struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobals
 type SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobals struct {
-	InstanceRequirements interface{} `json:"InstanceRequirements,omitempty"`
-	KmsKeyArn            interface{} `json:"KmsKeyArn,omitempty"`
-	OperatorRole         interface{} `json:"OperatorRole,omitempty"`
-	PropagateTags        bool        `json:"PropagateTags,omitempty"`
-	ScalingConfig        interface{} `json:"ScalingConfig,omitempty"`
-	Tags                 *Tags       `json:"Tags,omitempty"`
-	VpcConfig            interface{} `json:"VpcConfig,omitempty"`
+	InstanceRequirements interface{}                                                                `json:"InstanceRequirements,omitempty"`
+	KmsKeyArn            interface{}                                                                `json:"KmsKeyArn,omitempty"`
+	OperatorRole         interface{}                                                                `json:"OperatorRole,omitempty"`
+	PropagateTags        bool                                                                       `json:"PropagateTags,omitempty"`
+	ScalingConfig        interface{}                                                                `json:"ScalingConfig,omitempty"`
+	Tags                 *SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobalsTags `json:"Tags,omitempty"`
+	VpcConfig            interface{}                                                                `json:"VpcConfig,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobalsTags
+type SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderGlobalsTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderProperties struct {
-	CapacityProviderName interface{} `json:"CapacityProviderName,omitempty"`
-	InstanceRequirements interface{} `json:"InstanceRequirements,omitempty"`
-	KmsKeyArn            interface{} `json:"KmsKeyArn,omitempty"`
-	OperatorRole         interface{} `json:"OperatorRole,omitempty"`
-	PropagateTags        bool        `json:"PropagateTags,omitempty"`
-	ScalingConfig        interface{} `json:"ScalingConfig,omitempty"`
-	Tags                 *Tags       `json:"Tags,omitempty"`
-	VpcConfig            interface{} `json:"VpcConfig"`
+	CapacityProviderName interface{}                                                                   `json:"CapacityProviderName,omitempty"`
+	InstanceRequirements interface{}                                                                   `json:"InstanceRequirements,omitempty"`
+	KmsKeyArn            interface{}                                                                   `json:"KmsKeyArn,omitempty"`
+	OperatorRole         interface{}                                                                   `json:"OperatorRole,omitempty"`
+	PropagateTags        bool                                                                          `json:"PropagateTags,omitempty"`
+	ScalingConfig        interface{}                                                                   `json:"ScalingConfig,omitempty"`
+	Tags                 *SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderPropertiesTags `json:"Tags,omitempty"`
+	VpcConfig            interface{}                                                                   `json:"VpcConfig"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource
 type SamtranslatorInternalSchemaSourceAwsServerlessCapacityProviderResource struct {
@@ -2114,95 +2096,107 @@ type SamtranslatorInternalSchemaSourceAwsServerlessFunctionEventBridgeRuleTarget
 
 // SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobals
 type SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobals struct {
-	Architectures                interface{}               `json:"Architectures,omitempty"`
-	AssumeRolePolicyDocument     *AssumeRolePolicyDocument `json:"AssumeRolePolicyDocument,omitempty"`
-	AutoPublishAlias             interface{}               `json:"AutoPublishAlias,omitempty"`
-	CapacityProviderConfig       interface{}               `json:"CapacityProviderConfig,omitempty"`
-	CodeUri                      interface{}               `json:"CodeUri,omitempty"`
-	DeadLetterQueue              interface{}               `json:"DeadLetterQueue,omitempty"`
-	DeploymentPreference         interface{}               `json:"DeploymentPreference,omitempty"`
-	Description                  interface{}               `json:"Description,omitempty"`
-	DurableConfig                interface{}               `json:"DurableConfig,omitempty"`
-	Environment                  interface{}               `json:"Environment,omitempty"`
-	EphemeralStorage             interface{}               `json:"EphemeralStorage,omitempty"`
-	EventInvokeConfig            interface{}               `json:"EventInvokeConfig,omitempty"`
-	FunctionScalingConfig        interface{}               `json:"FunctionScalingConfig,omitempty"`
-	Handler                      interface{}               `json:"Handler,omitempty"`
-	KmsKeyArn                    interface{}               `json:"KmsKeyArn,omitempty"`
-	Layers                       interface{}               `json:"Layers,omitempty"`
-	LoggingConfig                interface{}               `json:"LoggingConfig,omitempty"`
-	MemorySize                   interface{}               `json:"MemorySize,omitempty"`
-	PermissionsBoundary          interface{}               `json:"PermissionsBoundary,omitempty"`
-	PropagateTags                bool                      `json:"PropagateTags,omitempty"`
-	ProvisionedConcurrencyConfig interface{}               `json:"ProvisionedConcurrencyConfig,omitempty"`
-	PublishToLatestPublished     interface{}               `json:"PublishToLatestPublished,omitempty"`
-	RecursiveLoop                interface{}               `json:"RecursiveLoop,omitempty"`
-	ReservedConcurrentExecutions interface{}               `json:"ReservedConcurrentExecutions,omitempty"`
-	RolePath                     interface{}               `json:"RolePath,omitempty"`
-	Runtime                      interface{}               `json:"Runtime,omitempty"`
-	RuntimeManagementConfig      interface{}               `json:"RuntimeManagementConfig,omitempty"`
-	SnapStart                    interface{}               `json:"SnapStart,omitempty"`
-	SourceKMSKeyArn              interface{}               `json:"SourceKMSKeyArn,omitempty"`
-	Tags                         *Tags                     `json:"Tags,omitempty"`
-	TenancyConfig                interface{}               `json:"TenancyConfig,omitempty"`
-	Timeout                      interface{}               `json:"Timeout,omitempty"`
-	Tracing                      interface{}               `json:"Tracing,omitempty"`
-	VersionDeletionPolicy        interface{}               `json:"VersionDeletionPolicy,omitempty"`
-	VpcConfig                    interface{}               `json:"VpcConfig,omitempty"`
+	Architectures                interface{}                                                                            `json:"Architectures,omitempty"`
+	AssumeRolePolicyDocument     *SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsAssumeRolePolicyDocument `json:"AssumeRolePolicyDocument,omitempty"`
+	AutoPublishAlias             interface{}                                                                            `json:"AutoPublishAlias,omitempty"`
+	CapacityProviderConfig       interface{}                                                                            `json:"CapacityProviderConfig,omitempty"`
+	CodeUri                      interface{}                                                                            `json:"CodeUri,omitempty"`
+	DeadLetterQueue              interface{}                                                                            `json:"DeadLetterQueue,omitempty"`
+	DeploymentPreference         interface{}                                                                            `json:"DeploymentPreference,omitempty"`
+	Description                  interface{}                                                                            `json:"Description,omitempty"`
+	DurableConfig                interface{}                                                                            `json:"DurableConfig,omitempty"`
+	Environment                  interface{}                                                                            `json:"Environment,omitempty"`
+	EphemeralStorage             interface{}                                                                            `json:"EphemeralStorage,omitempty"`
+	EventInvokeConfig            interface{}                                                                            `json:"EventInvokeConfig,omitempty"`
+	FunctionScalingConfig        interface{}                                                                            `json:"FunctionScalingConfig,omitempty"`
+	Handler                      interface{}                                                                            `json:"Handler,omitempty"`
+	KmsKeyArn                    interface{}                                                                            `json:"KmsKeyArn,omitempty"`
+	Layers                       interface{}                                                                            `json:"Layers,omitempty"`
+	LoggingConfig                interface{}                                                                            `json:"LoggingConfig,omitempty"`
+	MemorySize                   interface{}                                                                            `json:"MemorySize,omitempty"`
+	PermissionsBoundary          interface{}                                                                            `json:"PermissionsBoundary,omitempty"`
+	PropagateTags                bool                                                                                   `json:"PropagateTags,omitempty"`
+	ProvisionedConcurrencyConfig interface{}                                                                            `json:"ProvisionedConcurrencyConfig,omitempty"`
+	PublishToLatestPublished     interface{}                                                                            `json:"PublishToLatestPublished,omitempty"`
+	RecursiveLoop                interface{}                                                                            `json:"RecursiveLoop,omitempty"`
+	ReservedConcurrentExecutions interface{}                                                                            `json:"ReservedConcurrentExecutions,omitempty"`
+	RolePath                     interface{}                                                                            `json:"RolePath,omitempty"`
+	Runtime                      interface{}                                                                            `json:"Runtime,omitempty"`
+	RuntimeManagementConfig      interface{}                                                                            `json:"RuntimeManagementConfig,omitempty"`
+	SnapStart                    interface{}                                                                            `json:"SnapStart,omitempty"`
+	SourceKMSKeyArn              interface{}                                                                            `json:"SourceKMSKeyArn,omitempty"`
+	Tags                         *SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsTags                     `json:"Tags,omitempty"`
+	TenancyConfig                interface{}                                                                            `json:"TenancyConfig,omitempty"`
+	Timeout                      interface{}                                                                            `json:"Timeout,omitempty"`
+	Tracing                      interface{}                                                                            `json:"Tracing,omitempty"`
+	VersionDeletionPolicy        interface{}                                                                            `json:"VersionDeletionPolicy,omitempty"`
+	VpcConfig                    interface{}                                                                            `json:"VpcConfig,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsAssumeRolePolicyDocument
+type SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsAssumeRolePolicyDocument struct{}
+
+// SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsTags
+type SamtranslatorInternalSchemaSourceAwsServerlessFunctionGlobalsTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessFunctionProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessFunctionProperties struct {
-	Architectures                 interface{}               `json:"Architectures,omitempty"`
-	AssumeRolePolicyDocument      *AssumeRolePolicyDocument `json:"AssumeRolePolicyDocument,omitempty"`
-	AutoPublishAlias              interface{}               `json:"AutoPublishAlias,omitempty"`
-	AutoPublishAliasAllProperties bool                      `json:"AutoPublishAliasAllProperties,omitempty"`
-	AutoPublishCodeSha256         interface{}               `json:"AutoPublishCodeSha256,omitempty"`
-	CapacityProviderConfig        interface{}               `json:"CapacityProviderConfig,omitempty"`
-	CodeSigningConfigArn          interface{}               `json:"CodeSigningConfigArn,omitempty"`
-	CodeUri                       interface{}               `json:"CodeUri,omitempty"`
-	DeadLetterQueue               interface{}               `json:"DeadLetterQueue,omitempty"`
-	DeploymentPreference          interface{}               `json:"DeploymentPreference,omitempty"`
-	Description                   interface{}               `json:"Description,omitempty"`
-	DurableConfig                 interface{}               `json:"DurableConfig,omitempty"`
-	Environment                   interface{}               `json:"Environment,omitempty"`
-	EphemeralStorage              interface{}               `json:"EphemeralStorage,omitempty"`
-	EventInvokeConfig             interface{}               `json:"EventInvokeConfig,omitempty"`
-	Events                        map[string]interface{}    `json:"Events,omitempty"`
-	FileSystemConfigs             interface{}               `json:"FileSystemConfigs,omitempty"`
-	FunctionName                  interface{}               `json:"FunctionName,omitempty"`
-	FunctionScalingConfig         interface{}               `json:"FunctionScalingConfig,omitempty"`
-	FunctionUrlConfig             interface{}               `json:"FunctionUrlConfig,omitempty"`
-	Handler                       interface{}               `json:"Handler,omitempty"`
-	ImageConfig                   interface{}               `json:"ImageConfig,omitempty"`
-	ImageUri                      interface{}               `json:"ImageUri,omitempty"`
-	InlineCode                    interface{}               `json:"InlineCode,omitempty"`
-	KmsKeyArn                     interface{}               `json:"KmsKeyArn,omitempty"`
-	Layers                        interface{}               `json:"Layers,omitempty"`
-	LoggingConfig                 interface{}               `json:"LoggingConfig,omitempty"`
-	MemorySize                    interface{}               `json:"MemorySize,omitempty"`
-	PackageType                   interface{}               `json:"PackageType,omitempty"`
-	PermissionsBoundary           interface{}               `json:"PermissionsBoundary,omitempty"`
-	Policies                      interface{}               `json:"Policies,omitempty"`
-	PropagateTags                 bool                      `json:"PropagateTags,omitempty"`
-	ProvisionedConcurrencyConfig  interface{}               `json:"ProvisionedConcurrencyConfig,omitempty"`
-	PublishToLatestPublished      interface{}               `json:"PublishToLatestPublished,omitempty"`
-	RecursiveLoop                 interface{}               `json:"RecursiveLoop,omitempty"`
-	ReservedConcurrentExecutions  interface{}               `json:"ReservedConcurrentExecutions,omitempty"`
-	Role                          interface{}               `json:"Role,omitempty"`
-	RolePath                      interface{}               `json:"RolePath,omitempty"`
-	Runtime                       interface{}               `json:"Runtime,omitempty"`
-	RuntimeManagementConfig       interface{}               `json:"RuntimeManagementConfig,omitempty"`
-	SnapStart                     interface{}               `json:"SnapStart,omitempty"`
-	SourceKMSKeyArn               interface{}               `json:"SourceKMSKeyArn,omitempty"`
-	Tags                          *Tags                     `json:"Tags,omitempty"`
-	TenancyConfig                 interface{}               `json:"TenancyConfig,omitempty"`
-	Timeout                       interface{}               `json:"Timeout,omitempty"`
-	Tracing                       interface{}               `json:"Tracing,omitempty"`
-	VersionDeletionPolicy         interface{}               `json:"VersionDeletionPolicy,omitempty"`
-	VersionDescription            interface{}               `json:"VersionDescription,omitempty"`
-	VpcConfig                     interface{}               `json:"VpcConfig,omitempty"`
+	Architectures                 interface{}                                                                               `json:"Architectures,omitempty"`
+	AssumeRolePolicyDocument      *SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesAssumeRolePolicyDocument `json:"AssumeRolePolicyDocument,omitempty"`
+	AutoPublishAlias              interface{}                                                                               `json:"AutoPublishAlias,omitempty"`
+	AutoPublishAliasAllProperties bool                                                                                      `json:"AutoPublishAliasAllProperties,omitempty"`
+	AutoPublishCodeSha256         interface{}                                                                               `json:"AutoPublishCodeSha256,omitempty"`
+	CapacityProviderConfig        interface{}                                                                               `json:"CapacityProviderConfig,omitempty"`
+	CodeSigningConfigArn          interface{}                                                                               `json:"CodeSigningConfigArn,omitempty"`
+	CodeUri                       interface{}                                                                               `json:"CodeUri,omitempty"`
+	DeadLetterQueue               interface{}                                                                               `json:"DeadLetterQueue,omitempty"`
+	DeploymentPreference          interface{}                                                                               `json:"DeploymentPreference,omitempty"`
+	Description                   interface{}                                                                               `json:"Description,omitempty"`
+	DurableConfig                 interface{}                                                                               `json:"DurableConfig,omitempty"`
+	Environment                   interface{}                                                                               `json:"Environment,omitempty"`
+	EphemeralStorage              interface{}                                                                               `json:"EphemeralStorage,omitempty"`
+	EventInvokeConfig             interface{}                                                                               `json:"EventInvokeConfig,omitempty"`
+	Events                        map[string]interface{}                                                                    `json:"Events,omitempty"`
+	FileSystemConfigs             interface{}                                                                               `json:"FileSystemConfigs,omitempty"`
+	FunctionName                  interface{}                                                                               `json:"FunctionName,omitempty"`
+	FunctionScalingConfig         interface{}                                                                               `json:"FunctionScalingConfig,omitempty"`
+	FunctionUrlConfig             interface{}                                                                               `json:"FunctionUrlConfig,omitempty"`
+	Handler                       interface{}                                                                               `json:"Handler,omitempty"`
+	ImageConfig                   interface{}                                                                               `json:"ImageConfig,omitempty"`
+	ImageUri                      interface{}                                                                               `json:"ImageUri,omitempty"`
+	InlineCode                    interface{}                                                                               `json:"InlineCode,omitempty"`
+	KmsKeyArn                     interface{}                                                                               `json:"KmsKeyArn,omitempty"`
+	Layers                        interface{}                                                                               `json:"Layers,omitempty"`
+	LoggingConfig                 interface{}                                                                               `json:"LoggingConfig,omitempty"`
+	MemorySize                    interface{}                                                                               `json:"MemorySize,omitempty"`
+	PackageType                   interface{}                                                                               `json:"PackageType,omitempty"`
+	PermissionsBoundary           interface{}                                                                               `json:"PermissionsBoundary,omitempty"`
+	Policies                      interface{}                                                                               `json:"Policies,omitempty"`
+	PropagateTags                 bool                                                                                      `json:"PropagateTags,omitempty"`
+	ProvisionedConcurrencyConfig  interface{}                                                                               `json:"ProvisionedConcurrencyConfig,omitempty"`
+	PublishToLatestPublished      interface{}                                                                               `json:"PublishToLatestPublished,omitempty"`
+	RecursiveLoop                 interface{}                                                                               `json:"RecursiveLoop,omitempty"`
+	ReservedConcurrentExecutions  interface{}                                                                               `json:"ReservedConcurrentExecutions,omitempty"`
+	Role                          interface{}                                                                               `json:"Role,omitempty"`
+	RolePath                      interface{}                                                                               `json:"RolePath,omitempty"`
+	Runtime                       interface{}                                                                               `json:"Runtime,omitempty"`
+	RuntimeManagementConfig       interface{}                                                                               `json:"RuntimeManagementConfig,omitempty"`
+	SnapStart                     interface{}                                                                               `json:"SnapStart,omitempty"`
+	SourceKMSKeyArn               interface{}                                                                               `json:"SourceKMSKeyArn,omitempty"`
+	Tags                          *SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesTags                     `json:"Tags,omitempty"`
+	TenancyConfig                 interface{}                                                                               `json:"TenancyConfig,omitempty"`
+	Timeout                       interface{}                                                                               `json:"Timeout,omitempty"`
+	Tracing                       interface{}                                                                               `json:"Tracing,omitempty"`
+	VersionDeletionPolicy         interface{}                                                                               `json:"VersionDeletionPolicy,omitempty"`
+	VersionDescription            interface{}                                                                               `json:"VersionDescription,omitempty"`
+	VpcConfig                     interface{}                                                                               `json:"VpcConfig,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesAssumeRolePolicyDocument
+type SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesAssumeRolePolicyDocument struct{}
+
+// SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessFunctionPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessFunctionResource
 type SamtranslatorInternalSchemaSourceAwsServerlessFunctionResource struct {
@@ -2275,25 +2269,28 @@ type SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiProperties struct {
-	ApiKeys             map[string]*ApiKey                                            `json:"ApiKeys,omitempty"`
-	Auth                *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth `json:"Auth"`
-	Cache               *Cache                                                        `json:"Cache,omitempty"`
-	DataSources         *DataSources                                                  `json:"DataSources,omitempty"`
-	DomainName          *DomainName                                                   `json:"DomainName,omitempty"`
-	Functions           map[string]*Function                                          `json:"Functions,omitempty"`
-	IntrospectionConfig interface{}                                                   `json:"IntrospectionConfig,omitempty"`
-	Logging             interface{}                                                   `json:"Logging,omitempty"`
-	Name                interface{}                                                   `json:"Name,omitempty"`
-	OwnerContact        interface{}                                                   `json:"OwnerContact,omitempty"`
-	QueryDepthLimit     interface{}                                                   `json:"QueryDepthLimit,omitempty"`
-	ResolverCountLimit  interface{}                                                   `json:"ResolverCountLimit,omitempty"`
-	Resolvers           map[string]map[string]*Resolver                               `json:"Resolvers,omitempty"`
-	SchemaInline        interface{}                                                   `json:"SchemaInline,omitempty"`
-	SchemaUri           interface{}                                                   `json:"SchemaUri,omitempty"`
-	Tags                *Tags                                                         `json:"Tags,omitempty"`
-	Visibility          interface{}                                                   `json:"Visibility,omitempty"`
-	XrayEnabled         bool                                                          `json:"XrayEnabled,omitempty"`
+	ApiKeys             map[string]*ApiKey                                                      `json:"ApiKeys,omitempty"`
+	Auth                *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiAuth           `json:"Auth"`
+	Cache               *Cache                                                                  `json:"Cache,omitempty"`
+	DataSources         *DataSources                                                            `json:"DataSources,omitempty"`
+	DomainName          *DomainName                                                             `json:"DomainName,omitempty"`
+	Functions           map[string]*Function                                                    `json:"Functions,omitempty"`
+	IntrospectionConfig interface{}                                                             `json:"IntrospectionConfig,omitempty"`
+	Logging             interface{}                                                             `json:"Logging,omitempty"`
+	Name                interface{}                                                             `json:"Name,omitempty"`
+	OwnerContact        interface{}                                                             `json:"OwnerContact,omitempty"`
+	QueryDepthLimit     interface{}                                                             `json:"QueryDepthLimit,omitempty"`
+	ResolverCountLimit  interface{}                                                             `json:"ResolverCountLimit,omitempty"`
+	Resolvers           map[string]map[string]*Resolver                                         `json:"Resolvers,omitempty"`
+	SchemaInline        interface{}                                                             `json:"SchemaInline,omitempty"`
+	SchemaUri           interface{}                                                             `json:"SchemaUri,omitempty"`
+	Tags                *SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiPropertiesTags `json:"Tags,omitempty"`
+	Visibility          interface{}                                                             `json:"Visibility,omitempty"`
+	XrayEnabled         bool                                                                    `json:"XrayEnabled,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiResource
 type SamtranslatorInternalSchemaSourceAwsServerlessGraphqlapiResource struct {
@@ -2329,37 +2326,46 @@ type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiDomain struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobals
 type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobals struct {
-	AccessLogSettings    interface{} `json:"AccessLogSettings,omitempty"`
-	Auth                 interface{} `json:"Auth,omitempty"`
-	CorsConfiguration    interface{} `json:"CorsConfiguration,omitempty"`
-	DefaultRouteSettings interface{} `json:"DefaultRouteSettings,omitempty"`
-	Domain               interface{} `json:"Domain,omitempty"`
-	FailOnWarnings       interface{} `json:"FailOnWarnings,omitempty"`
-	PropagateTags        bool        `json:"PropagateTags,omitempty"`
-	RouteSettings        interface{} `json:"RouteSettings,omitempty"`
-	StageVariables       interface{} `json:"StageVariables,omitempty"`
-	Tags                 *Tags       `json:"Tags,omitempty"`
+	AccessLogSettings    interface{}                                                       `json:"AccessLogSettings,omitempty"`
+	Auth                 interface{}                                                       `json:"Auth,omitempty"`
+	CorsConfiguration    interface{}                                                       `json:"CorsConfiguration,omitempty"`
+	DefaultRouteSettings interface{}                                                       `json:"DefaultRouteSettings,omitempty"`
+	Domain               interface{}                                                       `json:"Domain,omitempty"`
+	FailOnWarnings       interface{}                                                       `json:"FailOnWarnings,omitempty"`
+	PropagateTags        bool                                                              `json:"PropagateTags,omitempty"`
+	RouteSettings        interface{}                                                       `json:"RouteSettings,omitempty"`
+	StageVariables       interface{}                                                       `json:"StageVariables,omitempty"`
+	Tags                 *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobalsTags `json:"Tags,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobalsTags
+type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiGlobalsTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessHttpapiProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiProperties struct {
-	AccessLogSettings         interface{}     `json:"AccessLogSettings,omitempty"`
-	Auth                      interface{}     `json:"Auth,omitempty"`
-	CorsConfiguration         interface{}     `json:"CorsConfiguration,omitempty"`
-	DefaultRouteSettings      interface{}     `json:"DefaultRouteSettings,omitempty"`
-	DefinitionBody            *DefinitionBody `json:"DefinitionBody,omitempty"`
-	DefinitionUri             interface{}     `json:"DefinitionUri,omitempty"`
-	Description               string          `json:"Description,omitempty"`
-	DisableExecuteApiEndpoint interface{}     `json:"DisableExecuteApiEndpoint,omitempty"`
-	Domain                    interface{}     `json:"Domain,omitempty"`
-	FailOnWarnings            interface{}     `json:"FailOnWarnings,omitempty"`
-	Name                      interface{}     `json:"Name,omitempty"`
-	PropagateTags             bool            `json:"PropagateTags,omitempty"`
-	RouteSettings             interface{}     `json:"RouteSettings,omitempty"`
-	StageName                 interface{}     `json:"StageName,omitempty"`
-	StageVariables            interface{}     `json:"StageVariables,omitempty"`
-	Tags                      *Tags           `json:"Tags,omitempty"`
+	AccessLogSettings         interface{}                                                                    `json:"AccessLogSettings,omitempty"`
+	Auth                      interface{}                                                                    `json:"Auth,omitempty"`
+	CorsConfiguration         interface{}                                                                    `json:"CorsConfiguration,omitempty"`
+	DefaultRouteSettings      interface{}                                                                    `json:"DefaultRouteSettings,omitempty"`
+	DefinitionBody            *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesDefinitionBody `json:"DefinitionBody,omitempty"`
+	DefinitionUri             interface{}                                                                    `json:"DefinitionUri,omitempty"`
+	Description               string                                                                         `json:"Description,omitempty"`
+	DisableExecuteApiEndpoint interface{}                                                                    `json:"DisableExecuteApiEndpoint,omitempty"`
+	Domain                    interface{}                                                                    `json:"Domain,omitempty"`
+	FailOnWarnings            interface{}                                                                    `json:"FailOnWarnings,omitempty"`
+	Name                      interface{}                                                                    `json:"Name,omitempty"`
+	PropagateTags             bool                                                                           `json:"PropagateTags,omitempty"`
+	RouteSettings             interface{}                                                                    `json:"RouteSettings,omitempty"`
+	StageName                 interface{}                                                                    `json:"StageName,omitempty"`
+	StageVariables            interface{}                                                                    `json:"StageVariables,omitempty"`
+	Tags                      *SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesTags           `json:"Tags,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesDefinitionBody
+type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesDefinitionBody struct{}
+
+// SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiPropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource
 type SamtranslatorInternalSchemaSourceAwsServerlessHttpapiResource struct {
@@ -2421,13 +2427,16 @@ type SamtranslatorInternalSchemaSourceAwsServerlessSimpletableGlobals struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessSimpletableProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessSimpletableProperties struct {
-	PointInTimeRecoverySpecification interface{} `json:"PointInTimeRecoverySpecification,omitempty"`
-	PrimaryKey                       interface{} `json:"PrimaryKey,omitempty"`
-	ProvisionedThroughput            interface{} `json:"ProvisionedThroughput,omitempty"`
-	SSESpecification                 interface{} `json:"SSESpecification,omitempty"`
-	TableName                        interface{} `json:"TableName,omitempty"`
-	Tags                             *Tags       `json:"Tags,omitempty"`
+	PointInTimeRecoverySpecification interface{}                                                              `json:"PointInTimeRecoverySpecification,omitempty"`
+	PrimaryKey                       interface{}                                                              `json:"PrimaryKey,omitempty"`
+	ProvisionedThroughput            interface{}                                                              `json:"ProvisionedThroughput,omitempty"`
+	SSESpecification                 interface{}                                                              `json:"SSESpecification,omitempty"`
+	TableName                        interface{}                                                              `json:"TableName,omitempty"`
+	Tags                             *SamtranslatorInternalSchemaSourceAwsServerlessSimpletablePropertiesTags `json:"Tags,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessSimpletablePropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessSimpletablePropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource
 type SamtranslatorInternalSchemaSourceAwsServerlessSimpletableResource struct {
@@ -2517,24 +2526,27 @@ type SamtranslatorInternalSchemaSourceAwsServerlessStatemachineGlobals struct {
 
 // SamtranslatorInternalSchemaSourceAwsServerlessStatemachineProperties
 type SamtranslatorInternalSchemaSourceAwsServerlessStatemachineProperties struct {
-	AutoPublishAlias        interface{}              `json:"AutoPublishAlias,omitempty"`
-	Definition              *Definition              `json:"Definition,omitempty"`
-	DefinitionSubstitutions *DefinitionSubstitutions `json:"DefinitionSubstitutions,omitempty"`
-	DefinitionUri           interface{}              `json:"DefinitionUri,omitempty"`
-	DeploymentPreference    interface{}              `json:"DeploymentPreference,omitempty"`
-	Events                  map[string]interface{}   `json:"Events,omitempty"`
-	Logging                 interface{}              `json:"Logging,omitempty"`
-	Name                    interface{}              `json:"Name,omitempty"`
-	PermissionsBoundary     interface{}              `json:"PermissionsBoundary,omitempty"`
-	Policies                interface{}              `json:"Policies,omitempty"`
-	PropagateTags           bool                     `json:"PropagateTags,omitempty"`
-	Role                    interface{}              `json:"Role,omitempty"`
-	RolePath                interface{}              `json:"RolePath,omitempty"`
-	Tags                    *Tags                    `json:"Tags,omitempty"`
-	Tracing                 interface{}              `json:"Tracing,omitempty"`
-	Type                    interface{}              `json:"Type,omitempty"`
-	UseAliasAsEventTarget   bool                     `json:"UseAliasAsEventTarget,omitempty"`
+	AutoPublishAlias        interface{}                                                               `json:"AutoPublishAlias,omitempty"`
+	Definition              *Definition                                                               `json:"Definition,omitempty"`
+	DefinitionSubstitutions *DefinitionSubstitutions                                                  `json:"DefinitionSubstitutions,omitempty"`
+	DefinitionUri           interface{}                                                               `json:"DefinitionUri,omitempty"`
+	DeploymentPreference    interface{}                                                               `json:"DeploymentPreference,omitempty"`
+	Events                  map[string]interface{}                                                    `json:"Events,omitempty"`
+	Logging                 interface{}                                                               `json:"Logging,omitempty"`
+	Name                    interface{}                                                               `json:"Name,omitempty"`
+	PermissionsBoundary     interface{}                                                               `json:"PermissionsBoundary,omitempty"`
+	Policies                interface{}                                                               `json:"Policies,omitempty"`
+	PropagateTags           bool                                                                      `json:"PropagateTags,omitempty"`
+	Role                    interface{}                                                               `json:"Role,omitempty"`
+	RolePath                interface{}                                                               `json:"RolePath,omitempty"`
+	Tags                    *SamtranslatorInternalSchemaSourceAwsServerlessStatemachinePropertiesTags `json:"Tags,omitempty"`
+	Tracing                 interface{}                                                               `json:"Tracing,omitempty"`
+	Type                    interface{}                                                               `json:"Type,omitempty"`
+	UseAliasAsEventTarget   bool                                                                      `json:"UseAliasAsEventTarget,omitempty"`
 }
+
+// SamtranslatorInternalSchemaSourceAwsServerlessStatemachinePropertiesTags
+type SamtranslatorInternalSchemaSourceAwsServerlessStatemachinePropertiesTags struct{}
 
 // SamtranslatorInternalSchemaSourceAwsServerlessStatemachineResource
 type SamtranslatorInternalSchemaSourceAwsServerlessStatemachineResource struct {
@@ -2602,12 +2614,6 @@ type ScalingConfig struct {
 	MaxVCpuCount          interface{} `json:"MaxVCpuCount,omitempty"`
 }
 
-// ScheduleEvent
-type ScheduleEvent struct {
-	Properties interface{} `json:"Properties"`
-	Type       string      `json:"Type"`
-}
-
 // ScheduleEventProperties
 type ScheduleEventProperties struct {
 	DeadLetterConfig interface{} `json:"DeadLetterConfig,omitempty"`
@@ -2625,12 +2631,6 @@ type ScheduleEventProperties struct {
 // ScheduleTarget
 type ScheduleTarget struct {
 	Id interface{} `json:"Id"`
-}
-
-// ScheduleV2Event
-type ScheduleV2Event struct {
-	Properties interface{} `json:"Properties"`
-	Type       string      `json:"Type"`
 }
 
 // SelfManagedKafkaEvent
@@ -2685,9 +2685,6 @@ type Tag struct {
 	Key   string `json:"Key"`
 	Value string `json:"Value"`
 }
-
-// Tags
-type Tags struct{}
 
 // UsagePlan
 type UsagePlan struct {
