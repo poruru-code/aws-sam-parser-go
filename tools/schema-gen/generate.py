@@ -157,7 +157,7 @@ def merge_extensions(base_schema):
     if "definitions" not in base_schema:
         base_schema["definitions"] = {}
 
-    for filename in os.listdir(EXTENSIONS_DIR):
+    for filename in sorted(os.listdir(EXTENSIONS_DIR)):
         if filename.endswith(".json"):
             schema_file = os.path.join(EXTENSIONS_DIR, filename)
             try:
@@ -280,7 +280,8 @@ def main():
 
         # Dynamically build ForceGeneration properties to include all top-level resources
         force_gen_props = {}
-        for def_name, def_body in schema_data["definitions"].items():
+        for def_name in sorted(schema_data["definitions"].keys()):
+            def_body = schema_data["definitions"][def_name]
             # Heuristic: top-level resources usually have a "Type" property (enum)
             # In our case, merge_extensions creates definitions with titles like AWSS3Bucket
             # and they have a "Type" field if they are resources.
@@ -314,7 +315,12 @@ def main():
         print(f"Generating Go code to {OUTPUT_FILE}...")
 
         # Run schema-generate and capture output
-        result = subprocess.run(cmd, check=False, capture_output=True, text=True)
+        env = os.environ.copy()
+        godebug = env.get("GODEBUG", "")
+        if "randautoseed=0" not in godebug:
+            env["GODEBUG"] = "randautoseed=0" if not godebug else f"{godebug},randautoseed=0"
+
+        result = subprocess.run(cmd, check=False, capture_output=True, text=True, env=env)
 
         print("--- schema-generate stdout ---")
         print(result.stdout)
