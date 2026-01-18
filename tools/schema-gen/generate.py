@@ -330,11 +330,44 @@ def main():
         with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
             lines = f.readlines()
 
+        filtered: list[str] = []
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            stripped = line.strip()
+
+            if stripped == "import (":
+                block: list[str] = []
+                i += 1
+                while i < len(lines):
+                    if lines[i].strip() == ")":
+                        break
+                    if '"encoding/json"' in lines[i]:
+                        i += 1
+                        continue
+                    block.append(lines[i])
+                    i += 1
+                i += 1  # skip ")"
+
+                if any(l.strip() and not l.strip().startswith("//") for l in block):
+                    filtered.append("import (\n")
+                    filtered.extend(block)
+                    filtered.append(")\n")
+                continue
+
+            if stripped == "import ()":
+                i += 1
+                continue
+
+            if '"encoding/json"' in line:
+                i += 1
+                continue
+
+            filtered.append(line)
+            i += 1
+
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            for line in lines:
-                if '"encoding/json"' in line:
-                    continue
-                f.write(line)
+            f.writelines(filtered)
         print("Post-processing successful.")
 
         fmt = subprocess.run(
