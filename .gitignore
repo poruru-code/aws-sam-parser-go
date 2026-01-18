@@ -1,0 +1,9 @@
+# Python
+__pycache__/
+*.pyc
+
+# Generated schema artifacts
+tools/schema-gen/sam.schema.merged.temp.json
+
+# Test coverage
+coverage.out

@@ -1,0 +1,47 @@
+# Toolchain versions managed by mise.
+
+[tools]
+python = "3.12"
+go = "1.25.1"
+lefthook = "2.0.15"
+
+# Go tooling (installed via go install)
+"go:github.com/golangci/golangci-lint/cmd/golangci-lint" = "latest"
+"go:mvdan.cc/gofumpt" = "latest"
+"go:golang.org/x/tools/cmd/goimports" = "latest"
+"go:github.com/elastic/go-json-schema-generate/cmd/schema-generate" = "v0.0.0-20220519132038-c708d18d6ca2"
+
+[tasks.setup]
+description = "Install git hooks"
+run = "lefthook install"
+
+[tasks.fmt]
+description = "Format Go sources"
+run = """bash -lc 'files=$(find . -name "*.go" -print); if [ -n "$files" ]; then goimports -w $files && gofumpt -w $files; fi'"""
+
+[tasks.lint]
+description = "Run golangci-lint"
+run = "golangci-lint run ./..."
+
+[tasks.test]
+description = "Run unit tests"
+run = "go test ./..."
+
+[tasks.schema-gen]
+description = "Regenerate schema output"
+run = "python3 tools/schema-gen/generate.py"
+
+[tasks.schema-gen-check]
+description = "Ensure schema output is up to date"
+run = [
+  "mise run schema-gen",
+  "git diff --exit-code schema/sam_generated.go",
+]
+
+[tasks.check]
+description = "Run format, lint, and tests"
+run = [
+  "mise run fmt",
+  "mise run lint",
+  "mise run test",
+]

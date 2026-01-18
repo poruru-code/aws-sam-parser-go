@@ -1,0 +1,12 @@
+# lefthook - Git hooks manager
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    go-fmt:
+      glob: "**/*.go"
+      run: goimports -w {staged_files} && gofumpt -w {staged_files} && git add {staged_files}
+    go-lint:
+      glob: "**/*.go"
+      run: golangci-lint run ./...
